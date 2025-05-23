@@ -1,0 +1,12 @@
+Patient de 67 ans, adressé pour céphalées récentes avec troubles de l'équilibre et diplopie intermittente.
+Antécédents : Diabète type 2, hypercholestérolémie, antécédent d'AVC ischémique sylvien gauche il y a 5 ans.
+Examen neurologique : Syndrome vestibulaire central, diplopie horizontale, hémiparésie droite séquellaire.
+L'examen IRM cérébrale a été réalisé sur une antenne de 3 Tesla avec séquences T1, T2, FLAIR, diffusion et T1 après injection de Gadolinium.
+Résultats :
+Substance blanche : Hypersignaux de la substance blanche périventriculaire et sous-corticaux en T2 et FLAIR, compatibles avec une leucoaraiose modérée.
+Substance grise : Séquelles d'infarctus sylvien gauche avec perte de substance cortico-sous-corticale pariétale.
+Tronc cérébral : Lésion punctiforme en hypersignal T2 et FLAIR au niveau du pont, avec restriction de diffusion évocatrice d'un infarctus récent.
+Cervelet : Pas d'anomalie décelable.
+Système ventriculaire : Dilatation ventriculaire modérée en rapport avec l'atrophie corticale.
+Vaisseaux : Flux conservé des artères du polygone de Willis. Pas d'anévrisme visible.
+Conclusion : Infarctus pontique récent. Séquelles d'AVC sylvien gauche. Leucoaraiose modérée dans un contexte de facteurs de risque cardiovasculaires.

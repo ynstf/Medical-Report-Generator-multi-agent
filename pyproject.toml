@@ -1,0 +1,28 @@
+[project]
+name = "medical_report_generator"
+version = "0.1.0"
+description = "medical_report_generator using crewAI"
+authors = [{ name = "The Three Wise Clowns", email = "you@example.com" }]
+requires-python = ">=3.10,<3.13"
+dependencies = [
+    "crewai[tools]>=0.114.0,<1.0.0",
+    "fastapi[standard]>=0.115.12",
+    "python-docx>=1.1.2",
+    "scikit-learn>=1.6.0",
+    "sqlmodel>=0.0.24",
+    "uvicorn[standard]>=0.34.2",
+]
+
+[project.scripts]
+medical_report_generator = "medical_report_generator.main:run"
+run_crew = "medical_report_generator.main:run"
+train = "medical_report_generator.main:train"
+replay = "medical_report_generator.main:replay"
+test = "medical_report_generator.main:test"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.crewai]
+type = "crew"
