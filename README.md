@@ -40,7 +40,8 @@ The system uses a standardized Word document template with the following structu
 
 ### Document Template Layout
 
-![image](https://github.com/user-attachments/assets/ad43cb3c-dd24-485c-8bf8-33b8412df0ae)
+![image](https://github.com/user-attachments/assets/e9c47cc8-5da6-4bd9-a508-4277562f762d)
+
 
 
 The template includes:
@@ -101,7 +102,8 @@ The system produces professionally formatted Word documents with:
 
 Example generated report:
 
-![image](https://github.com/user-attachments/assets/991a4f9a-0582-4cc2-b771-0003f8c4cd28)
+![image](https://github.com/user-attachments/assets/8d872dd8-eda7-441d-aba3-99e7bdbb546b)
+
 
 
 ## Requirements
