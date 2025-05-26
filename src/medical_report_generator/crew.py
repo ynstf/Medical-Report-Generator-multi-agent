@@ -2,10 +2,6 @@ from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
 from medical_report_generator.tools import MedicalReportClassifierTool, RAGMedicalReportsTool
 
-# If you want to run a snippet of code before or after the crew starts,
-# you can use the @before_kickoff and @after_kickoff decorators
-# https://docs.crewai.com/concepts/crews#example-crew-class-with-decorators
-
 
 @CrewBase
 class MedicalReportGenerator:
@@ -13,7 +9,6 @@ class MedicalReportGenerator:
 
     agents_config = "config/agents.yaml"
     tasks_config = "config/tasks.yaml"
-    # Define the knowledge base path, adjust if your 'knowledge' folder is elsewhere
     knowledge_base_path = "knowledge/reports/training"
 
     @agent
@@ -49,65 +44,67 @@ class MedicalReportGenerator:
         )
 
     @agent
+    def semantic_validator(self) -> Agent:
+        return Agent(
+            config=self.agents_config["semantic_validator"],
+            verbose=True,
+        )
+
+    @agent
     def report_finalizer_and_reviewer(self) -> Agent:
         return Agent(
             config=self.agents_config["report_finalizer_and_reviewer"],
             verbose=True,
         )
 
-    @agent
-    def semantic_validator(self) -> Agent:
-        return Agent(
-            config=self.agents_config["semantic_validator"],
-            verbose=True
-        )
-
     @task
-    def classify_report_type(self) -> Task:
+    def determine_report_type(self) -> Task:
         return Task(
-            config=self.tasks_config["classify_report_type"],
+            config=self.tasks_config["determine_report_type"],
             agent=self.report_classifier(),
         )
 
     @task
-    def extract_medical_data(self) -> Task:
+    def retrieve_medical_info(self) -> Task:
         return Task(
-            config=self.tasks_config["extract_medical_data"],
+            config=self.tasks_config["retrieve_medical_info"],
             agent=self.information_extractor(),
+            context=[self.determine_report_type()],
         )
 
+
     @task
-    def map_data_to_template_sections(self) -> Task:
+    def organize_into_sections(self) -> Task:
         return Task(
-            config=self.tasks_config["map_data_to_template_sections"],
+            config=self.tasks_config["organize_into_sections"],
             agent=self.template_mapper(),
         )
 
     @task
-    def generate_section_content(self) -> Task:
+    def compose_section_text(self) -> Task:
         return Task(
-            config=self.tasks_config["generate_section_content"],
+            config=self.tasks_config["compose_section_text"],
             agent=self.report_section_generator(),
-            context = [self.map_data_to_template_sections()]
+            context=[self.organize_into_sections()],
         )
 
     @task
-    def validate_semantic_coherence(self) -> Task:
+    def check_semantic_coherence(self) -> Task:
         return Task(
-            config=self.tasks_config["validate_semantic_coherence"],
+            config=self.tasks_config["check_semantic_coherence"],
             agent=self.semantic_validator(),
-            context=[self.generate_section_content()]
+            context=[self.compose_section_text()],
         )
 
     @task
-    def assemble_and_review_report(self) -> Task:
+    def compile_finalize_report(self) -> Task:
         return Task(
-            config=self.tasks_config["assemble_and_review_report"],
+            config=self.tasks_config["compile_finalize_report"],
             agent=self.report_finalizer_and_reviewer(),
             context=[
-                self.validate_semantic_coherence(), 
-                self.classify_report_type()
-            ]
+                self.check_semantic_coherence(),
+                self.determine_report_type(),
+            ],
         )
 
     @crew
@@ -116,12 +113,12 @@ class MedicalReportGenerator:
         return Crew(
             agents=self.agents,
             tasks=[
-                self.classify_report_type(),
-                self.extract_medical_data(),
-                self.map_data_to_template_sections(),
-                self.generate_section_content(),
-                self.validate_semantic_coherence(),
-                self.assemble_and_review_report(),
+                self.determine_report_type(),
+                self.retrieve_medical_info(),
+                self.organize_into_sections(),
+                self.compose_section_text(),
+                self.check_semantic_coherence(),
+                self.compile_finalize_report(),
             ],
             process=Process.sequential,
             verbose=True,

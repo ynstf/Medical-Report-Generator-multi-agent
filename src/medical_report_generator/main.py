@@ -573,26 +573,6 @@ def test():
         print(f"\nUne erreur s'est produite lors de l'exécution du test : {type(e).__name__}: {e}", file=sys.stderr)
 
 
-# Entry point for the script
-# if __name__ == "__main__":
-#     if len(sys.argv) > 1:
-#         command = sys.argv[1].lower()
-#         if command == "run":
-#             run()
-#         elif command == "train":
-#             train()
-#         elif command == "replay":
-#             replay()
-#         elif command == "test":
-#             test()
-#         else:
-#             print(f"Commande inconnue : {command}")
-#             print("Commandes disponibles : run, test, train, replay")
-#     else:
-#         print("Aucune commande fournie. Exécution de la commande 'run' par défaut.")
-#         run()  # Default command
-
-
 
 
 if __name__ == "__main__":
